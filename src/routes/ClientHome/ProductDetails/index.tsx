@@ -24,7 +24,7 @@ export default function ProductDetails(){
             setProduct(response.data);
         })
         .catch(() => {
-            navigate("/");
+            navigate("/")
         });
     }, []);
 
