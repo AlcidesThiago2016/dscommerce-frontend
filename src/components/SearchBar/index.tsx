@@ -1,11 +1,41 @@
+import { useState } from 'react';
 import './styles.css'
 
-export default function SearchBar() {
+type Props = {
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  onSearch: Function;
+}
+
+export default function SearchBar({ onSearch }: Props) {
+
+  const [text, setText] = useState("");
+
+  function handleResetClick(){
+    setText("");
+    onSearch(text);
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function handleChange(event: any){
+    setText(event.target.value);
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function handleSubmit(event: any){
+    event.preventDefault();
+    onSearch(text);
+  }
+
   return (
-    <form className="dsc-search-bar">
+    <form className="dsc-search-bar" onSubmit={handleSubmit}>
       <button type="submit">🔎︎</button>
-      <input type="text" placeholder="Nome do Produto" />
-      <button type="reset">❌</button>
+      <input 
+        value={text}
+        type="text" 
+        placeholder="Nome do Produto" 
+        onChange={handleChange}
+      />
+      <button onClick={handleResetClick}>❌</button>
     </form>
   );
 }
