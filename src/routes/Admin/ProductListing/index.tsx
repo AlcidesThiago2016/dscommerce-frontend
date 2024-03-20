@@ -4,6 +4,7 @@ import editIcon from '../../../assets/edit.svg';
 import deleteIcon from '../../../assets/delete.svg';
 import { useEffect, useState } from 'react';
 import { ProductDTO } from '../../../models/product';
+import SearchBar from '../../../components/SearchBar';
 
 type QueryParams = {
     page: number;
@@ -12,6 +13,7 @@ type QueryParams = {
 
 export default function ProductListing(){
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [isLastPage, setIsLastPage] = useState(false);
 
     const [products, setProducts] = useState<ProductDTO[]>([]);
@@ -31,6 +33,15 @@ export default function ProductListing(){
         })
     }, [queryParams]);
 
+    function handleSearch(searchText : string){
+        setProducts([]);
+        setQueryParams({ ...queryParams ,page: 0 ,name: searchText });
+    }
+
+    function handleNextPageClick(){
+        setQueryParams({ ...queryParams, page : queryParams.page + 1});
+    }
+
     return (
         <main>
         <section id="product-listing-section" className="dsc-container">
@@ -41,11 +52,7 @@ export default function ProductListing(){
                 <div className="dsc-btn dsc-btn-white">Novo</div>
             </div>
 
-            <form className="dsc-search-bar">
-                <button type="submit">🔎︎</button>
-                <input type="text" placeholder="Nome do Produto" />
-                <button type="reset">❌</button>
-            </form>
+            <SearchBar onSearch={handleSearch}/>
 
             <table className="dsc-table dsc-mb20 dsc-mt20">
                 <thead>
@@ -60,7 +67,7 @@ export default function ProductListing(){
 
                     {
                         products.map(product => (
-                            <tr>
+                            <tr key={product.id}>
                                 <td className="dsc-tb576">{product.id}</td>
                                 <td><img className="dsc-product-listing-image" src={product.imgUrl} alt={product.name}/></td>
                                 <td className="dsc-tb768">{product.price.toFixed(2)}</td>
@@ -72,9 +79,11 @@ export default function ProductListing(){
                     }
                 </tbody>
             </table>
-
+            {
+                 !isLastPage &&
+                 <div onClick={handleNextPageClick} className="dsc-btn-next-page">Carregar Mais...</div>
+            }
            
-            <div className="dsc-btn-next-page">Carregar Mais...</div>
         </section>
     </main>
     )
