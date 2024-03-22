@@ -2,9 +2,9 @@
 export default function FormInput(props : any){
     
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { validation, ...inputProps } = props;
+    const { validation, invalid, ...inputProps } = props;
 
     return(
-        <input { ...inputProps} />
+        <input { ...inputProps} data-invalid={invalid} />
     )
 }

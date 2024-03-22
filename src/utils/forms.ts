@@ -26,7 +26,7 @@ export function updateAll(inputs: any, newValue: any){
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
 export function validate(inputs: any, name: string){
 
-    if (!inputs[name].validate){
+    if (!inputs[name].validation){
         return inputs;
     }
 
