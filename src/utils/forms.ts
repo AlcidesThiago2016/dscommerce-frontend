@@ -12,3 +12,13 @@ export function toValue(inputs: any){
     }
     return data;
 }
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function updateAll(inputs: any, newValue: any){
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const newInputs: any = {};
+    for ( const name in inputs){
+        newInputs[name] = { ...inputs[name], value: newValue[name]};
+    }
+    return newInputs;
+}
