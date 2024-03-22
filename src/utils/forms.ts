@@ -22,3 +22,15 @@ export function updateAll(inputs: any, newValue: any){
     }
     return newInputs;
 }
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
+export function validate(inputs: any, name: string){
+
+    if (!inputs[name].validate){
+        return inputs;
+    }
+
+    const isInvalid = !inputs[name].validation(inputs[name].value);
+
+    return { ...inputs, [name]: { ...inputs[name], invalid: isInvalid.toString()}};
+}
