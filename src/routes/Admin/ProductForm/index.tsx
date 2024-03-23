@@ -18,6 +18,10 @@ export default function ProductForm() {
       name: "name",
       type: "text",
       placeholder: "Nome",
+      validation: function(value: string){
+        return /^.{3,80}$/.test(value);
+      },
+      message: "Favor informar um nome de 3 a 80 caracteres"
     },
     price: {
       value: "",
@@ -38,6 +42,7 @@ export default function ProductForm() {
       type: "text",
       placeholder: "Imagem",
     },
+    message: "Teste"
   });
 
   useEffect(() => {
