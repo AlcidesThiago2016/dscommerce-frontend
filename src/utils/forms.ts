@@ -84,6 +84,18 @@ export function hasAnyInvalid(inputs: any){
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function setBackEndErrors(inputs: any, errors: any[]){
+    const newInputs = { ...inputs };
+
+    errors.forEach(item => {
+        newInputs[item.fieldName].message = item.message;
+        newInputs[item.fieldName].dirty = "true";
+        newInputs[item.fieldName].invalid = "true";
+    });
+    return newInputs;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function updateAndValidate(inputs: any, name: string, newValue: any){
     const dataUpdated = update(inputs, name, newValue);
     return validate(dataUpdated, name);
